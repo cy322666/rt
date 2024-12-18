@@ -11,12 +11,12 @@ class HookController extends Controller
     public function schedule(Request $request)
     {
         $transaction = Transaction::query()->create([
-            'type' => '',
-            'leads_count_last' => 1,
+            'type' => 'schedule',
+//            'leads_count_last' => 1,
 //            'leads_count_new' => 1,
-            'lead_id' => '',
-            'contact_id' => '',
-            'agreement' => '',
+            'lead_id' => $request->lead_id,
+            'contact_id' => $request->contact_id,
+            'agreement' => $request->agreement,
 //            'part_sum' => '',
 //        'all_sum' => '',
             'status' => 0,
