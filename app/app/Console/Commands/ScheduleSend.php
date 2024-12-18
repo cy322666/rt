@@ -81,7 +81,22 @@ class ScheduleSend extends Command
         }
 
         //пересчитываем
+        $leads = Leads::searchActivePays($contact, $amoApi, PIPELINE_ID, $transaction->agreement);
 
+        $countLeads = $leads->count();
+
+        $partSum = $lead->sale / $countLeads;
+
+        foreach ($leads as $lead) {
+
+            $lead->sale = $partSum;
+            $lead->save();
+        }
+
+        $transaction->leads_count_last = $countLeads;
+        $transaction->part_sum = $partSum;
+        $transaction->status = 1;
+        $transaction->save();
 
         //сверяем колво сделок в воронке и выплат (в тч и закрытые)
         //если больше то закрываем с конца
