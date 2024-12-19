@@ -159,18 +159,41 @@ abstract class Leads
         });
     }
 
+    public static function searchSuccessPays(Contact $contact, $client, int $pipelineId, string $fieldValue = '')
+    {
+        return $contact->leads->filter(function($lead) use ($client, $pipelineId, $fieldValue) {
+
+            if ($lead->status_id == 142) {
+
+                if ($lead->pipeline_id == $pipelineId) {
+
+                    if ($lead->cf('Номер договора')->getValue() == $fieldValue) {
+
+                        return true;
+                    }
+                }
+            }
+        });
+    }
+
     public static function searchAllPays(Contact $contact, $client, int $pipelineId, string $fieldValue = '')
     {
         return $contact->leads->filter(function($lead) use ($client, $pipelineId, $fieldValue) {
 
             if ($lead->pipeline_id == $pipelineId) {
 
-                if ($lead->cf('Номер договора')->getValue() == $fieldValue) {
+                if ($lead->cf('Номер договора')->getValue() == $fieldValue &&
+                    $lead->cf('Дата платежа')->getValue()) {
 
                     return true;
                 }
             }
-        })->sortBy('Дата платежа', 'DESC');
+        })->uasort(function ($lead1, $lead2) {
+
+            return $lead1->cf('Дата платежа')->getValue() > $lead2->cf('Дата платежа')->getValue();// or other function/code
+        }
+    );
+//        })->sortBy('Дата платежа', 'DESC');
     }
 
     public static function create($contact, array $params, ?string $leadname)
