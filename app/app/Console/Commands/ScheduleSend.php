@@ -143,6 +143,7 @@ class ScheduleSend extends Command
                 $lead->cf('Срок выплат')->setValue($baseLead->cf('Срок выплат')->getValue());
                 $lead->cf('Количество платежей')->setValue($baseLead->cf('Количество платежей')->getValue());
                 $lead->cf('Дата первого платежа')->setValue($baseLead->cf('Дата первого платежа')->getValue());
+                $lead->cf('Не запускать процесс выплат')->enable();
 
                 $lead->save();
             }
