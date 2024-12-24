@@ -165,7 +165,7 @@ class ScheduleSend extends Command
         $lastLead->save();
 
         $transaction->leads_count_last = Leads::searchActivePays($contact, $amoApi, PIPELINE_ID, $transaction->agreement)->count();
-        $transaction->part_sum = $partSum;
+        $transaction->part_sum = $partSum ?: 0;
         $transaction->status = 1;
         $transaction->save();
 
