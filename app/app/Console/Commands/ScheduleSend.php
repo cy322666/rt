@@ -159,7 +159,7 @@ class ScheduleSend extends Command
         //пересчитываем
         $leadsActive = Leads::searchActivePays($contact, $amoApi, PIPELINE_ID, $transaction->agreement);
 
-        $lastLead = $leadActive->last();
+        $lastLead = $leadsActive->last();
 
         $lastLead->sale = $lastLead->sale + $baseLead->sale;
         $lastLead->save();
