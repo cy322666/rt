@@ -59,6 +59,7 @@ class ScheduleSend extends Command
 
         $baseLead = $amoApi->service->leads()->find($transaction->lead_id);
 
+        //если закрываем
         if ($countPays < $countLeads) {
 
             //урезаем
@@ -117,6 +118,7 @@ class ScheduleSend extends Command
                 }
             }
 
+            //если создаем
         } elseif ($countPays > $countLeads) {
 
             //добавляем
@@ -145,9 +147,9 @@ class ScheduleSend extends Command
                 $lead->save();
             }
 
-            $countLeads = $leads->count();
+            $leads = Leads::searchActivePays($contact, $amoApi, PIPELINE_ID, $transaction->agreement);
 
-            $partSum = $baseLead->sale / $countLeads;
+            $partSum = $baseLead->sale / $leads->count();
 
             foreach ($leads as $lead) {
 
