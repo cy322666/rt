@@ -47,9 +47,7 @@ class HookController extends Controller
 
     public function calculate(Request $request)
     {
-        $leadId = $request->input('lead_id');
-
-
+        Artisan::call('app:calculate', ['lead_id' => $request->lead_id]);
     }
 }
 

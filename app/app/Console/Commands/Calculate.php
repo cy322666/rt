@@ -15,7 +15,7 @@ class Calculate extends Command
      *
      * @var string
      */
-    protected $signature = 'app:calculate';
+    protected $signature = 'app:calculate {lead_id}';
 
     /**
      * The console command description.
