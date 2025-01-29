@@ -32,9 +32,7 @@ class Calculate extends Command
     {
         $amoApi = (New Client(Account::query()->first()))->init();
 
-        $lead = $amoApi->service->leads()->find(7698223);
-
-//        $type = $lead->cf('Тип договора')->getValue();
+        $lead = $amoApi->service->leads()->find($this->argument('lead_id'));
 
         $number = $lead->cf('Номер договора')->getValue();
         $countPays = $lead->cf('Количество платежей')->getValue();
