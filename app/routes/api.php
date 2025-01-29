@@ -7,3 +7,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('payments/schedule', [HookController::class, 'schedule']);
 
 Route::post('payments/sum', [HookController::class, 'sum']);
+
+Route::post('calculate', [HookController::class, 'calculate']);
