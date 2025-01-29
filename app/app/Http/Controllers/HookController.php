@@ -44,5 +44,12 @@ class HookController extends Controller
 
         Artisan::call('app:sum-send', ['transaction_id' => $transaction->id]);
     }
+
+    public function calculate(Request $request)
+    {
+        $leadId = $request->input('lead_id');
+
+
+    }
 }
 
